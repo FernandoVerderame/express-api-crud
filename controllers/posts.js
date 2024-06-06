@@ -36,7 +36,11 @@ const store = async (req, res) => {
 const index = async (req, res) => {
 
     try {
-        const posts = await prisma.post.findMany();
+        const where = {};
+        const { published } = req.query;
+        if (published) where.published = published === 'true';
+
+        const posts = await prisma.post.findMany({ where });
         res.json(posts);
     } catch (err) {
         console.error(err);
