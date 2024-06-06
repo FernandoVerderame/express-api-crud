@@ -31,6 +31,18 @@ const store = async (req, res) => {
     }
 }
 
+// Index dei Posts
+const index = async (req, res) => {
+
+    try {
+        const posts = await prisma.post.findMany();
+        res.json(posts);
+    } catch (err) {
+        console.error(err);
+    }
+}
+
 module.exports = {
-    store
+    store,
+    index,
 }
