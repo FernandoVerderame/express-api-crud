@@ -8,7 +8,8 @@ const router = express.Router();
 const {
     store,
     index,
-    show
+    show,
+    update
 } = require("../controllers/posts.js");
 
 router.post('/', store);
@@ -16,5 +17,7 @@ router.post('/', store);
 router.get('/', index);
 
 router.get('/:slug', show);
+
+router.put('/:slug', update);
 
 module.exports = router;

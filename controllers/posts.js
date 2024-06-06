@@ -75,10 +75,22 @@ const show = async (req, res) => {
 }
 
 // Update dei Posts
-
+const update = async (req, res) => {
+    try {
+        const { slug } = req.params;
+        const post = await prisma.post.update({
+            where: { slug: slug },
+            data: req.body
+        });
+        res.json(post);
+    } catch (err) {
+        console.error(err);
+    }
+}
 
 module.exports = {
     store,
     index,
-    show
+    show,
+    update
 }
