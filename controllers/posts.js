@@ -37,8 +37,16 @@ const index = async (req, res) => {
 
     try {
         const where = {};
-        const { published } = req.query;
+        const { published, text } = req.query;
+
         if (published) where.published = published === 'true';
+
+        if (text) {
+            where.OR = [
+                { title: { contains: text } },
+                { content: { contains: text } }
+            ];
+        }
 
         const posts = await prisma.post.findMany({ where });
         res.json(posts);
@@ -65,6 +73,9 @@ const show = async (req, res) => {
         console.error(err);
     }
 }
+
+// Update dei Posts
+
 
 module.exports = {
     store,
