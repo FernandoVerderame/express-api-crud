@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 const createSlug = require("../utils/slug.js");
 
 // Store dei Posts
-const store = async (req, res) => {
+const store = async (req, res, next) => {
 
     const { title, content } = req.body;
 
@@ -27,13 +27,13 @@ const store = async (req, res) => {
         const post = await prisma.post.create({ data });
         res.status(200).send(post);
     } catch (err) {
-        console.error(err);
+        next(err);
     }
 }
 
 
 // Index dei Posts
-const index = async (req, res) => {
+const index = async (req, res, next) => {
 
     try {
         const where = {};
@@ -72,12 +72,12 @@ const index = async (req, res) => {
             totalPages
         });
     } catch (err) {
-        console.error(err);
+        next(err);
     }
 }
 
 // Show dei Posts
-const show = async (req, res) => {
+const show = async (req, res, next) => {
     try {
         const { slug } = req.params;
         const post = await prisma.post.findUnique({
@@ -91,12 +91,12 @@ const show = async (req, res) => {
         }
 
     } catch (err) {
-        console.error(err);
+        next(err);
     }
 }
 
 // Update dei Posts
-const update = async (req, res) => {
+const update = async (req, res, next) => {
     try {
         const { slug } = req.params;
         const post = await prisma.post.update({
@@ -105,12 +105,12 @@ const update = async (req, res) => {
         });
         res.json(post);
     } catch (err) {
-        console.error(err);
+        next(err);
     }
 }
 
 // Destroy dei Posts
-const destroy = async (req, res) => {
+const destroy = async (req, res, next) => {
     try {
         const { slug } = req.params;
         const post = await prisma.post.delete({
@@ -118,7 +118,7 @@ const destroy = async (req, res) => {
         });
         res.json(`Post con slug ${slug} eliminato con successo.`);
     } catch (err) {
-        console.log(err);
+        next(err);
     }
 }
 

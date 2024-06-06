@@ -5,6 +5,9 @@ const dotenv = require("dotenv");
 // Importo il ruoter dei Posts
 const postsRouter = require("./routers/posts.js");
 
+const errorHandler = require('./middlewares/errorHandler.js');
+const notFound = require('./middlewares/notFound.js');
+
 // Inizializzo express
 const app = express();
 
@@ -19,6 +22,10 @@ app.use(express.json());
 
 // Router dei Posts
 app.use('/posts', postsRouter);
+
+app.use(notFound);
+
+app.use(errorHandler);
 
 // Avvio il server
 app.listen(port, host, () => {
