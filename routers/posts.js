@@ -7,11 +7,14 @@ const router = express.Router();
 // Importo le funzioni dei Posts
 const {
     store,
-    index
+    index,
+    show
 } = require("../controllers/posts.js");
 
 router.post('/', store);
 
 router.get('/', index);
+
+router.get('/:slug', show);
 
 module.exports = router;

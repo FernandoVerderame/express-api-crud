@@ -43,7 +43,27 @@ const index = async (req, res) => {
     }
 }
 
+// Show dei Posts
+const show = async (req, res) => {
+    try {
+        const { slug } = req.params;
+        const post = await prisma.post.findUnique({
+            where: { slug: slug }
+        });
+
+        if (post) {
+            res.json(post);
+        } else {
+            res.status(404).json({ error: `Post con slug ${slug} non trovata` })
+        }
+
+    } catch (err) {
+        console.error(err);
+    }
+}
+
 module.exports = {
     store,
     index,
+    show
 }
