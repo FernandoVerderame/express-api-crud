@@ -79,7 +79,7 @@ const update = async (req, res) => {
     try {
         const { slug } = req.params;
         const post = await prisma.post.update({
-            where: { slug: slug },
+            where: { slug },
             data: req.body
         });
         res.json(post);
@@ -88,9 +88,23 @@ const update = async (req, res) => {
     }
 }
 
+// Destroy dei Posts
+const destroy = async (req, res) => {
+    try {
+        const { slug } = req.params;
+        const post = await prisma.post.delete({
+            where: { slug }
+        });
+        res.json(`Post con slug ${slug} eliminato con successo.`);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 module.exports = {
     store,
     index,
     show,
-    update
+    update,
+    destroy
 }
