@@ -21,3 +21,11 @@ Vi chiediamo di definire i seguenti endpoint:
 - PUT `/posts/:slug` per aggiornare un post.
 
 - DELETE `/posts/:slug` per eliminare un post.
+
+### BONUS:
+
+- Implementare la paginazione.
+
+- Gestire gli errori, restituendo uno stato HTTP 404 e un messaggio di errore, nel caso in cui una rotta non sia stata trovata.
+
+- Gestire gli errori, restituendo uno stato HTTP 500 e un messaggio di errore, nel caso in cui venga sollevata un'eccezione dal Prisma Client.
